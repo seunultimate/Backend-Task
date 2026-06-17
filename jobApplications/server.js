@@ -1,7 +1,19 @@
-express = require("express");
+const express = require("express");
+require("dotenv").config();
 const jobApplication = express();
-const PORT = 3300;
-jobApplication.use = express.json()
+const mongoose = require("mongoose");
+const PORT = process.env.PORT || 3300;
+jobApplication.use(express.json());
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 
 const data = [
     { id: '1', CompanyName: 'Google', Position: 'Software Engineer', Status: 'Applied', 
