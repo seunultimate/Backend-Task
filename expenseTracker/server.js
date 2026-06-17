@@ -1,7 +1,18 @@
 const express = require("express");
+require("dotenv").config();
 const expenseTracker = express();
-const PORT = 3300;
-expenseTracker.use = express.json()
+const mongoose = require("mongoose");
+const PORT = process.env.PORT || 3300;
+expenseTracker.use(express.json());
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const data = [
     {Id: '1', amount: 100000, type: 'income', category: 'salary', date: '2025-05-01', Note: 'may salary' },
